@@ -1,3 +1,4 @@
+<% current_service_ids = @company.service_ids %>
 <%= form_for(@company) do |f| %>
   <% if @company.errors.any? %>
     <div id="error_explanation">
@@ -23,6 +24,20 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label "Services" %><br />
+    <ul>
+    <% Service.all.each do |service| %>
+      <% hidden_field_tag 'company[service_ids][]', [] %>
+      <li>
+        <%= check_box_tag "company[service_ids][]", service.id, current_service_ids.include?(service.id) %>
+        <%= service.title %>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+
   <div class="field">
     <%= f.label :about %><br />
     <%= f.text_area :about %>

@@ -16,6 +16,15 @@
 </p>
 
 <p>
+  <b>Services:</b>
+  <ul>
+  <% @company.services.each do |service| %>
+  	<li><%= service.title %></li>
+  <% end %>
+  </ul>
+</p>
+
+<p>
   <b>About:</b>
   <%= @company.about %>
 </p>

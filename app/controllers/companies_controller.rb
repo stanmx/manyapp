@@ -41,6 +41,9 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(params[:company])
+    # code add to services
+    @services = Service.where(:id => params[:services])
+    @company.services << @services 
 
     respond_to do |format|
       if @company.save
@@ -57,6 +60,10 @@ class CompaniesController < ApplicationController
   # PUT /companies/1.json
   def update
     @company = Company.find(params[:id])
+    # code add to services
+    @services = Service.where(:id => params[:services])
+    #@company.services.destroy_all
+    @company.services << @services 
 
     respond_to do |format|
       if @company.update_attributes(params[:company])

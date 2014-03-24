@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319041318) do
+ActiveRecord::Schema.define(:version => 20140324051142) do
 
   create_table "categories", :force => true do |t|
     t.string   "title"
@@ -28,8 +28,22 @@ ActiveRecord::Schema.define(:version => 20140319041318) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "companies_services", :id => false, :force => true do |t|
+    t.integer "company_id", :null => false
+    t.integer "service_id", :null => false
+  end
+
+  add_index "companies_services", ["company_id", "service_id"], :name => "index_companies_services_on_company_id_and_service_id", :unique => true
+
   create_table "delegations", :force => true do |t|
     t.string   "city"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "services", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at",  :null => false

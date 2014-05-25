@@ -10,6 +10,7 @@ Manyapp::Application.routes.draw do
 
   resources :categories
 
+  match 'find' => 'companies#find'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

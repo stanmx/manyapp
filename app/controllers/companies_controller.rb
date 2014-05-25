@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     @companies = Company.all
+    @delegations = Delegation.includes(:companies).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -85,6 +86,23 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to companies_url }
       format.json { head :no_content }
+    end
+  end
+
+  def find
+    if params[:name].present? && params[:delegation_id].present?
+      @companies = Company.where(name: params[:name], delegation_id: params[:delegation_id])
+    elsif params[:name].present?
+      @companies = Company.where(name: params[:name])
+    elsif params[:delegation_id].present?
+      @companies = Company.where(delegation_id: params[:delegation_id])
+    else
+      redirect_to root_url, alert: "No parameters supplied"
+    end 
+
+    respond_to do |format|
+      format.html # find.html.erb
+      format.json { render :json => @companies }
     end
   end
 end
